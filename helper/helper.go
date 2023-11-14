@@ -10,7 +10,8 @@ import (
 	"strings"
 )
 
-// Ex.1
+// <<<<< Ex.1 >>>>>>
+
 func findMaxPathSum(input [][]int) int {
 	rows := len(input)
 
@@ -35,6 +36,7 @@ func findMaxPathSum(input [][]int) int {
 	return sums[0][0]
 }
 
+// ฟังก์ชันสำหรับหาค่าที่มากที่สุด
 func max(a, b int) int {
 	if a > b {
 		return a
@@ -42,6 +44,7 @@ func max(a, b int) int {
 	return b
 }
 
+// ฟังก์ชันสำหรับรับข้อมูลจาก http
 func getDataEx1(url string) [][]int {
 
 	// สร้าง HTTP client
@@ -80,6 +83,8 @@ func getDataEx1(url string) [][]int {
 	}
 	return input
 }
+
+// ฟังก์ชันสำหรับรัน
 func Example1() {
 	input := [][]int{{59}, {73, 41}, {52, 40, 53}, {26, 53, 6, 34}}
 	output := findMaxPathSum(input)
@@ -88,10 +93,11 @@ func Example1() {
 	input = getDataEx1("https://raw.githubusercontent.com/7-solutions/backend-challenge/main/files/hard.json")
 	output = findMaxPathSum(input)
 	fmt.Println("ข้อ 1. Test Case(2) ผลรวมที่มากที่สุด:", output)
-
 }
 
-// Ex.2
+// ======== Ex.1 ========
+
+// <<<<< Ex.2 >>>>>>
 
 // ฟังก์ชันสำหรับแปลงข้อความที่เข้ารหัสเป็นตัวเลขชุด
 func decodeString(encoded string) string {
@@ -124,6 +130,7 @@ func decodeString(encoded string) string {
 	return decoded
 }
 
+// ฟังก์ชันสำหรับรัน
 func Example2() {
 	input1 := "LLRR="
 	output1 := decodeString(input1)
@@ -138,7 +145,10 @@ func Example2() {
 	fmt.Println("ข้อ 2. Test Case(3) : input =", input1, "output =", output1)
 }
 
-// Ex.3
+// ======== Ex.2 ========
+
+// <<<<< Ex.3 >>>>>>
+
 func countMeats(text string) map[string]int {
 	meats := make(map[string]int)
 
@@ -157,6 +167,7 @@ func countMeats(text string) map[string]int {
 	return meats
 }
 
+// ฟังก์ชันสำหรับรับข้อมูลจาก http
 func getDataEx3(url string) string {
 
 	// สร้าง HTTP client
@@ -189,6 +200,7 @@ func getDataEx3(url string) string {
 	return string(body)
 }
 
+// ฟังก์ชันสำหรับเช็คข้อมูลใน array
 func contains(arr []string, value string) bool {
 	for _, item := range arr {
 		if item == value {
@@ -198,6 +210,7 @@ func contains(arr []string, value string) bool {
 	return false
 }
 
+// ฟังก์ชันสำหรับเพิ่มข้อมูล
 func convertToDesiredFormat(input map[string]int) map[string]map[string]int {
 	result := make(map[string]map[string]int)
 
@@ -212,6 +225,14 @@ func convertToDesiredFormat(input map[string]int) map[string]map[string]int {
 	return result
 }
 
+// ฟังก์ชันสำหรับจัดโค้ดตามรูปแบบ json
+func prettyprint(b []byte) ([]byte, error) {
+	var out bytes.Buffer
+	err := json.Indent(&out, b, "", "  ")
+	return out.Bytes(), err
+}
+
+// ฟังก์ชันสำหรับรัน
 func Example3() {
 	text := getDataEx3("https://baconipsum.com/api/?type=meat-and-filler&paras=99&format=text")
 
@@ -228,8 +249,4 @@ func Example3() {
 	}
 }
 
-func prettyprint(b []byte) ([]byte, error) {
-	var out bytes.Buffer
-	err := json.Indent(&out, b, "", "  ")
-	return out.Bytes(), err
-}
+// ======== Ex.3 ========
