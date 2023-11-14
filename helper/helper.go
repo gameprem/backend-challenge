@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math"
 	"net/http"
-	"sort"
 	"strings"
 )
 
@@ -102,32 +102,43 @@ func Example1() {
 // ฟังก์ชันสำหรับแปลงข้อความที่เข้ารหัสเป็นตัวเลขชุด
 func decodeString(encoded string) string {
 	// สร้าง slice เพื่อเก็บค่าตัวเลข
-	numbers := make([]int, len(encoded)+1)
 
-	// ตั้งค่าตัวเลขเริ่มต้น
-	numbers[0] = 2
+	numbers := []float64{0, 0, 0, 0, 0, 0}
 
-	// แปลงแต่ละตัวอักษรใน encoded เป็นตัวเลข
+	// // ตั้งค่าตัวเลขเริ่มต้น
+
+	// // แปลงแต่ละตัวอักษรใน encoded เป็นตัวเลข
 	for i, char := range encoded {
 		if char == 'L' {
-			numbers[i+1] = numbers[i] + 1
-		} else if char == 'R' {
 			numbers[i+1] = numbers[i] - 1
-		} else { // char == '='
+		} else if char == 'R' {
+			numbers[i+1] = numbers[i] + 1
+		} else if char == '=' { // char == '='
 			numbers[i+1] = numbers[i]
 		}
 	}
+	fmt.Println("numbers ", numbers)
 
-	// เรียงลำดับตัวเลข
-	sort.Ints(numbers)
-
-	// สร้างข้อความจากตัวเลขที่เรียงลำดับ
-	decoded := ""
-	for i := 1; i < len(numbers); i++ {
-		decoded += fmt.Sprintf("%d", numbers[i]-numbers[i-1])
+	var nagative = 0.0
+	for _, item := range numbers {
+		res := math.Signbit(item)
+		if res {
+			if nagative > item {
+				nagative = item
+			}
+		}
 	}
 
-	return decoded
+	var positiveX = (nagative * -1)
+
+	if positiveX > 0 {
+		for i, _ := range numbers {
+			numbers[i] = numbers[i] + positiveX
+		}
+	}
+	fmt.Println("numbers ", numbers)
+
+	return ""
 }
 
 // ฟังก์ชันสำหรับรัน
