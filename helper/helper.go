@@ -117,28 +117,32 @@ func decodeString(encoded string) string {
 			numbers[i+1] = numbers[i]
 		}
 	}
-	fmt.Println("numbers ", numbers)
+	// fmt.Println("numbers ", numbers)
 
-	var nagative = 0.0
+	// หาค่าตัวเลขที่น้อยที่สุด
+	minValue := math.Inf(1)
 	for _, item := range numbers {
-		res := math.Signbit(item)
-		if res {
-			if nagative > item {
-				nagative = item
-			}
+		if item < minValue {
+			minValue = item
 		}
 	}
 
-	var positiveX = (nagative * -1)
-
-	if positiveX > 0 {
-		for i, _ := range numbers {
-			numbers[i] = numbers[i] + positiveX
+	// ถ้ามีค่าติดลบให้เพิ่มค่าให้ทุกตัวใน slice เพื่อทำให้เป็นบวกทั้งหมด
+	if minValue < 0 {
+		for i := range numbers {
+			numbers[i] += math.Abs(minValue)
 		}
 	}
-	fmt.Println("numbers ", numbers)
 
-	return ""
+	// fmt.Println("numbers after adjustment:", numbers)
+
+	// สร้าง string จากตัวเลขที่ได้
+	result := ""
+	for _, num := range numbers {
+		result += fmt.Sprintf("%d", int(num))
+	}
+
+	return result
 }
 
 // ฟังก์ชันสำหรับรัน
