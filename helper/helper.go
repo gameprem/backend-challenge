@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	// "math"
+	"math"
 	"net/http"
 	"strings"
 )
@@ -33,11 +33,10 @@ func findMaxPathSum(input [][]int) int {
 		countArray := len(input[i]) // จำนวน array
 		for j := 0; j < countArray; j++ {
 			// หาผลรวมที่มากที่สุดของเส้นทางที่เป็นไปได้
-			greater := input[i][j] // ค่าที่สูงสุดใน array
 			// fmt.Println("L", input[i+1][j])                    // ค่าคู่ทางซ้าย
 			// fmt.Println("R", input[i+1][j+1])                  // ค่าคู่ทางขวา
 			sumsPathTotal := max(sums[i+1][j], sums[i+1][j+1]) // ต่าที่สูงสุดของผลรวมที่ทำการคำนวณก่อนหน้า
-			sums[i][j] = greater + sumsPathTotal
+			sums[i][j] = input[i][j] + sumsPathTotal
 			// fmt.Println("sums[i][j]", sums[i][j])
 		}
 	}
@@ -128,19 +127,19 @@ func decodeString(encoded string) string {
 	// fmt.Println("numbers ", numbers)
 
 	// หาค่าตัวเลขที่น้อยที่สุด
-	// minValue := math.Inf(1)
-	// for _, item := range numbers {
-	// 	if item < minValue {
-	// 		minValue = item
-	// 	}
-	// }
+	minValue := math.Inf(1)
+	for _, item := range numbers {
+		if item < minValue {
+			minValue = item
+		}
+	}
 
-	// // ถ้ามีค่าติดลบให้เพิ่มค่าให้ทุกตัวใน slice เพื่อทำให้เป็นบวกทั้งหมด
-	// if minValue < 0 {
-	// 	for i := range numbers {
-	// 		numbers[i] += math.Abs(minValue)
-	// 	}
-	// }
+	// ถ้ามีค่าติดลบให้เพิ่มค่าให้ทุกตัวใน slice เพื่อทำให้เป็นบวกทั้งหมด
+	if minValue < 0 {
+		for i := range numbers {
+			numbers[i] += math.Abs(minValue)
+		}
+	}
 
 	// fmt.Println("numbers after adjustment:", numbers)
 
