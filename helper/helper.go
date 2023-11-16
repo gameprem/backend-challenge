@@ -30,7 +30,6 @@ func findMaxPathSum(input [][]int) int {
 
 	// เริ่มต้นจากต่ำไปสูง
 	for i := rows - 2; i >= 0; i-- {
-
 		countArray := len(input[i]) // จำนวน array
 		for j := 0; j < countArray; j++ {
 			// หาผลรวมที่มากที่สุดของเส้นทางที่เป็นไปได้
@@ -67,8 +66,6 @@ func getDataEx1(url string) [][]int {
 		fmt.Println("Error creating request:", err)
 		return nil
 	}
-
-	// สามารถเพิ่มการตั้งค่า TLS ได้ (ถ้าจำเป็น)
 
 	// ทำการ execute request
 	resp, err := client.Do(req)
@@ -209,8 +206,6 @@ func getDataEx3(url string) string {
 		fmt.Println("Error creating request:", err)
 		return ""
 	}
-
-	// สามารถเพิ่มการตั้งค่า TLS ได้ (ถ้าจำเป็น)
 
 	// ทำการ execute request
 	resp, err := client.Do(req)
