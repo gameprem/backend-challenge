@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"math"
+	// "math"
 	"net/http"
 	"strings"
 )
@@ -13,22 +13,28 @@ import (
 // <<<<< Ex.1 >>>>>>
 
 func findMaxPathSum(input [][]int) int {
-	rows := len(input)
+	rows := len(input) // [[59], [73, 41], [52, 40, 53], [26, 53, 6, 34]] => 4
 
 	// สร้าง slice 2 มิติสำหรับเก็บผลรวมที่ได้ที่แต่ละจุด
-	sums := make([][]int, rows)
+	sums := make([][]int, rows) // len = 4
+	// [[] [] [] []]
+
 	for i := range sums {
 		sums[i] = make([]int, len(input[i]))
 	}
+	// [[0] [0 0] [0 0 0] [0 0 0 0]]
 
 	// กำหนดค่าเริ่มต้นในบริเวณที่มีเพียงตัวเดียว (ด้านฐาน)
 	sums[rows-1] = input[rows-1]
+	// [[0] [0 0] [0 0 0] [26 53 6 34]]
 
 	// เริ่มต้นจากต่ำไปสูง
 	for i := rows - 2; i >= 0; i-- {
 		for j := 0; j < len(input[i]); j++ {
 			// หาผลรวมที่มากที่สุดของเส้นทางที่เป็นไปได้
+
 			sums[i][j] = input[i][j] + max(sums[i+1][j], sums[i+1][j+1])
+			// fmt.Println("sums[i][j]", sums[i][j])
 		}
 	}
 
@@ -120,19 +126,19 @@ func decodeString(encoded string) string {
 	// fmt.Println("numbers ", numbers)
 
 	// หาค่าตัวเลขที่น้อยที่สุด
-	minValue := math.Inf(1)
-	for _, item := range numbers {
-		if item < minValue {
-			minValue = item
-		}
-	}
+	// minValue := math.Inf(1)
+	// for _, item := range numbers {
+	// 	if item < minValue {
+	// 		minValue = item
+	// 	}
+	// }
 
-	// ถ้ามีค่าติดลบให้เพิ่มค่าให้ทุกตัวใน slice เพื่อทำให้เป็นบวกทั้งหมด
-	if minValue < 0 {
-		for i := range numbers {
-			numbers[i] += math.Abs(minValue)
-		}
-	}
+	// // ถ้ามีค่าติดลบให้เพิ่มค่าให้ทุกตัวใน slice เพื่อทำให้เป็นบวกทั้งหมด
+	// if minValue < 0 {
+	// 	for i := range numbers {
+	// 		numbers[i] += math.Abs(minValue)
+	// 	}
+	// }
 
 	// fmt.Println("numbers after adjustment:", numbers)
 
@@ -230,11 +236,11 @@ func convertToDesiredFormat(input map[string]int) map[string]map[string]int {
 	result := make(map[string]map[string]int)
 
 	result["beef"] = make(map[string]int)
-	arr := []string{"t-bone", "fatback", "pastrami", "pork", "meatloaf", "jowl", "enim", "bresaola"}
+	// arr := []string{"t-bone", "fatback", "pastrami", "pork", "meatloaf", "jowl", "enim", "bresaola"}
 	for key, value := range input {
-		if contains(arr, key) {
-			result["beef"][key] = value
-		}
+		// if contains(arr, key) {
+		result["beef"][key] = value
+		// }
 	}
 
 	return result
