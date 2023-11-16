@@ -30,10 +30,15 @@ func findMaxPathSum(input [][]int) int {
 
 	// เริ่มต้นจากต่ำไปสูง
 	for i := rows - 2; i >= 0; i-- {
-		for j := 0; j < len(input[i]); j++ {
-			// หาผลรวมที่มากที่สุดของเส้นทางที่เป็นไปได้
 
-			sums[i][j] = input[i][j] + max(sums[i+1][j], sums[i+1][j+1])
+		countArray := len(input[i]) // จำนวน array
+		for j := 0; j < countArray; j++ {
+			// หาผลรวมที่มากที่สุดของเส้นทางที่เป็นไปได้
+			greater := input[i][j] // ค่าที่สูงสุดใน array
+			// fmt.Println("L", input[i+1][j])                    // ค่าคู่ทางซ้าย
+			// fmt.Println("R", input[i+1][j+1])                  // ค่าคู่ทางขวา
+			sumsPathTotal := max(sums[i+1][j], sums[i+1][j+1]) // ต่าที่สูงสุดของผลรวมที่ทำการคำนวณ
+			sums[i][j] = greater + sumsPathTotal
 			// fmt.Println("sums[i][j]", sums[i][j])
 		}
 	}
@@ -153,6 +158,10 @@ func decodeString(encoded string) string {
 
 // ฟังก์ชันสำหรับรัน
 func Example2() {
+	// สัญลักษณ์ “L” หมายความว่า ตัวเลขด้านซ้าย มีค่ามากกว่า ตัวเลขด้านขวา
+	// สัญลักษณ์ “R” หมายความว่า ตัวเลขด้านขวา มีค่ามากกว่า ตัวเลขด้านซ้าย
+	// สัญลักษณ์ “=“ หมายความว่า ตัวเลขด้านซ้าย มีค่าเท่ากับ ตัวเลขด้านขวา
+
 	input1 := "LLRR="
 	output1 := decodeString(input1)
 	fmt.Println("ข้อ 2. Test Case(1) : input =", input1, "output =", output1)
