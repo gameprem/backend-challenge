@@ -37,7 +37,7 @@ func findMaxPathSum(input [][]int) int {
 			greater := input[i][j] // ค่าที่สูงสุดใน array
 			// fmt.Println("L", input[i+1][j])                    // ค่าคู่ทางซ้าย
 			// fmt.Println("R", input[i+1][j+1])                  // ค่าคู่ทางขวา
-			sumsPathTotal := max(sums[i+1][j], sums[i+1][j+1]) // ต่าที่สูงสุดของผลรวมที่ทำการคำนวณ
+			sumsPathTotal := max(sums[i+1][j], sums[i+1][j+1]) // ต่าที่สูงสุดของผลรวมที่ทำการคำนวณก่อนหน้า
 			sums[i][j] = greater + sumsPathTotal
 			// fmt.Println("sums[i][j]", sums[i][j])
 		}
